@@ -19,19 +19,23 @@ const adminUsers = [
   },
 ];
 
+app.set("trust proxy", 1);
 app.use(
   cors({
     credentials: true,
     origin: [
       "https://goldfish-app-cr82c.ondigitalocean.app",
+      "https://goldfish-app-cr82c.ondigitalocean.app/",
       "http://localhost:3030",
       "http://localhost:3031",
     ],
   })
 );
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(helmet());
+app.use(express.json({ limit: "20mb" }));
+app.use(
+  express.urlencoded({ limit: "20mb", extended: true, parameterLimit: 20000 })
+);
 const JWT_SECRET = process.env.JWT_SECRET || "mySuperSecretKey123"; //
 
 const generateToken = (user) =>
