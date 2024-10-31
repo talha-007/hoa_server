@@ -28,6 +28,8 @@ app.use(
       "https://goldfish-app-cr82c.ondigitalocean.app/",
       "http://localhost:3030",
       "http://localhost:3031",
+      "https://membersverify.org",
+      "https://membersverify.org/",
     ],
   })
 );
