@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
+const connectDB = require("./db");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -26,12 +27,12 @@ app.use(
     origin: [
       "http://localhost:3030",
       "http://localhost:3031",
-      "https://api.membersverify.com/",
-      "https://api.membersverify.com",
+      "https://membersverify.com/",
+      "https://membersverify.com",
     ],
   })
 );
-
+connectDB();
 app.use(express.json({ limit: "20mb" }));
 app.use(
   express.urlencoded({ limit: "20mb", extended: true, parameterLimit: 20000 })
