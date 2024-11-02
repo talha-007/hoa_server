@@ -6,9 +6,11 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const connectDB = require("./db");
-
+const userRoutes = require("./routes/userRoutes"); // Adjust the path as necessary
+const adminRoutes = require("./routes/adminRoutes"); // Adjust the path as necessary
 const app = express();
 const port = process.env.PORT || 3000;
+app.use("/uploads", express.static("uploads"));
 
 // Mock database
 const adminUsers = [
@@ -94,7 +96,9 @@ app.get("/third-party-api", verifyToken, (req, res) => {
     message: "Third-party API integration will go here!",
   });
 });
-
+// Use user routes
+app.use("/api/user", userRoutes);
+app.use("/api/admin", verifyToken, adminRoutes);
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });
 });
