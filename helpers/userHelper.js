@@ -3,12 +3,15 @@ const nodemailer = require("nodemailer");
 const decryptData = require("./crypto");
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  host: "smtp.office365.com", // Outlook's SMTP server
+  port: 587, // TLS port
+  secure: false, // Set to false because we're using STARTTLS
   auth: {
-    user: "sfsTalha@gmail.com",
-    pass: process.env.EMAIL_KEY,
+    user: "Boi@membersverify.com", // Your Outlook email address
+    pass: process.env.EMAIL_KEY, // Your app password or regular password if MFA is disabled
+  },
+  tls: {
+    rejectUnauthorized: false, // Optional: Disable certificate validation (useful for debugging)
   },
 });
 listUpload = async (req, res) => {
@@ -225,7 +228,7 @@ sendEmail = async (req, res) => {
 
     // Prepare the email content
     const msg = {
-      from: '"Maddison Foo Koch 👻" <sfsTalha@gmail.com>',
+      from: '"Members verify" <Boi@membersverify.com>',
       to: toEmail,
       subject: subject,
       html: `
